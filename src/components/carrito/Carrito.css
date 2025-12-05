@@ -61,7 +61,7 @@
 .vaciar-btn {
   margin-top: 15px;
   padding: 8px 15px;
-  background-color: #ff4d4f;
+  background-color: #000000;
   color: white;
   border: none;
   cursor: pointer;
@@ -69,9 +69,24 @@
 }
 .borrar-btn{
   padding: 8px 15px;
-  background-color: #ff4d4f;
+  background-color: #000000;
   color: white;
   border: none;
   cursor: pointer;
   border-radius: 5px;
+}
+
+
+.checkout-btn {
+  margin: 15px 180px 0px 0px;
+  padding: 8px 15px;
+  background-color: #ff0004;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+
 }

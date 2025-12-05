@@ -1,16 +1,11 @@
 import { useContext } from "react";
-import { CartContext } from "../../context/cartContextt";
+import { CartContext } from "../../context/CartContextt";
 import "./Carrito.css";
 
 function Carrito({ carritoAbierto, cerrarCarrito }) {
-  const { carrito, eliminarDelCarrito, vaciarCarrito } = useContext(CartContext);
+  const { carrito, eliminarDelCarrito, vaciarCarrito, totalCarrito } = useContext(CartContext);
 
   if (!carritoAbierto) return null;
-
-  const totalCarrito = carrito.reduce(
-    (acc, item) => acc + item.precio * item.cantidad,
-    0
-  );
 
   return (
     <>
@@ -27,13 +22,12 @@ function Carrito({ carritoAbierto, cerrarCarrito }) {
             {carrito.map((item) => (
               <div key={item.id} className="item-carrito">
                 <img src={item.imagen} alt={item.nombre} className="item-img" />
-                
-                <div>
-                  <h3>{item.nombre}</h3>
 
+                <div className="item-info">
+                  <h3>{item.nombre}</h3>
                   <p>Cantidad: {item.cantidad}</p>
                   <p>Precio unitario: ${item.precio}</p>
-                  <p><strong>Subtotal: ${item.precio * item.cantidad}</strong></p>
+                  <p>Subtotal: ${item.precio * item.cantidad}</p>
 
                   <button
                     onClick={() => eliminarDelCarrito(item.id)}
@@ -44,11 +38,17 @@ function Carrito({ carritoAbierto, cerrarCarrito }) {
                 </div>
               </div>
             ))}
-            <h3 className="total-general">Total: ${totalCarrito}</h3>
 
-            <button onClick={vaciarCarrito} className="vaciar-btn">
-              Vaciar carrito
-            </button>
+            <div className="carrito-buttons">
+            <h3 className="total-text">Total: ${totalCarrito()}</h3>
+<button onClick={cerrarCarrito} className="checkout-btn">
+  <a href="/checkout" style={{ color: "white", textDecoration: "none" }}>
+    Finalizar compra
+  </a>
+</button>
+              <button onClick={vaciarCarrito} className="vaciar-btn">Vaciar carrito</button>
+
+            </div>
           </>
         )}
       </div>

@@ -1,76 +1,73 @@
 import { useContext, useState } from "react";
-import { CartContext } from "../../context/cartContextt";
+import { CartContext } from "../../context/CartContextt";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { db } from "../../firebase/FirebaseConfig";
-import { collection, addDoc } from "firebase/firestore";
-import "./Checkout.css";
+import "./Checkout.css";  
+  function Checkout() {
+  const { carrito, totalCarrito, totalUnidades, vaciarCarrito } = useContext(CartContext);
 
-function Checkout() {
-  const { carrito, totalCarrito, vaciarCarrito } = useContext(CartContext);
+  const [datos, setDatos] = useState({ nombre: "", email: "" });
+  const [ordenId, setOrdenId] = useState("");
 
-  const [nombre, setNombre] = useState("");
-  const [email, setEmail] = useState("");
-  const [telefono, setTelefono] = useState("");
-  const [ordenId, setOrdenId] = useState(null);
+  const handleChange = (e) => {
+    setDatos({ ...datos, [e.target.name]: e.target.value });
+  };
 
   const finalizarCompra = async (e) => {
     e.preventDefault();
 
     const orden = {
-      comprador: { nombre, email, telefono },
+      comprador: datos,
       items: carrito,
-      total: totalCarrito,
-      fecha: new Date(),
+      total: totalCarrito(),
+      cantidad: totalUnidades(),
+      fecha: Timestamp.now(),
     };
 
     const docRef = await addDoc(collection(db, "ordenes"), orden);
 
-    setOrdenId(docRef.id);      // 🔥 Guardamos el ID generado por Firestore
-    vaciarCarrito();            // 🔥 Vaciamos el carrito después de comprar
+    setOrdenId(docRef.id);
+    vaciarCarrito();
   };
 
-  if (ordenId) {
-    return (
-      <div className="checkout-success">
-        <h2>✅ Compra realizada con éxito!</h2>
-        <p>Tu número de orden es:</p>
-        <h3>{ordenId}</h3>
-      </div>
-    );
-  }
-
   return (
-    <div className="checkout-form">
+    <div className="checkout-container">
       <h2>Finalizar compra</h2>
 
-      <form onSubmit={finalizarCompra}>
-        <input
-          type="text"
-          placeholder="Nombre"
-          value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
-          required
-        />
+      {ordenId ? (
+        <div className="mensaje-final">
+          <h2> ¡Gracias por tu compra!</h2>
+          <p>Tu código de seguimiento es:</p>
+          <h3>{ordenId}</h3>
+        </div>
+      ) : (
+        <form className="checkout-form" onSubmit={finalizarCompra}>
+          <label>Nombre completo</label>
+          <input
+            type="text"
+            name="nombre"
+            required
+            value={datos.nombre}
+            onChange={handleChange}
+          />
 
-        <input
-          type="email"
-          placeholder="Correo"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+          <label>Email</label>
+          <input
+            type="email"
+            name="email"
+            required
+            value={datos.email}
+            onChange={handleChange}
+          />
 
-        <input
-          type="text"
-          placeholder="Teléfono"
-          value={telefono}
-          onChange={(e) => setTelefono(e.target.value)}
-          required
-        />
-
-        <button type="submit">Confirmar compra ({totalCarrito})</button>
-      </form>
+          <button className="confirmar-btn" type="submit">
+            Confirmar compra
+          </button>
+        </form>
+      )}
     </div>
   );
 }
+
 
 export default Checkout;

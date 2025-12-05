@@ -1,7 +1,7 @@
 import { getFirestore, collection, getDocs, getDoc } from "firebase/firestore";
-import {app} from "./Firebase"
+import App from "../App"
 
-const db =  getFirestore(app)
+const db =  getFirestore(App)
 
 export const getProducts = async() =>{
     const documents = await getDocs(collection(db,"´products"))

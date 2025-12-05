@@ -1,18 +1,9 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
 
 export const CartContext = createContext();
 
-export function CartProvider({ children }) {
-  const [carrito, setCarrito] = useState(() => {
-
-    const savedCart = localStorage.getItem("carrito");
-    return savedCart ? JSON.parse(savedCart) : [];
-  });
-
-  useEffect(() => {
-
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-  }, [carrito]);
+export const CartProvider = ({ children }) => {
+  const [carrito, setCarrito] = useState([]);
 
   const agregarAlCarrito = (producto, cantidad) => {
     const existe = carrito.find((item) => item.id === producto.id);
@@ -34,12 +25,17 @@ export function CartProvider({ children }) {
     setCarrito(carrito.filter((item) => item.id !== id));
   };
 
-  const vaciarCarrito = () => setCarrito([]);
+  const vaciarCarrito = () => {
+    setCarrito([]);
+  };
 
-  const totalCarrito = carrito.reduce(
-    (acc, item) => acc + item.precio * item.cantidad,
-    0
-  );
+  const totalUnidades = () => {
+    return carrito.reduce((acc, item) => acc + item.cantidad, 0);
+  };
+
+  const totalCarrito = () => {
+    return carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
+  };
 
   return (
     <CartContext.Provider
@@ -48,10 +44,11 @@ export function CartProvider({ children }) {
         agregarAlCarrito,
         eliminarDelCarrito,
         vaciarCarrito,
+        totalUnidades,
         totalCarrito,
       }}
     >
       {children}
     </CartContext.Provider>
   );
-}
+};
