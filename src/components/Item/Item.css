@@ -1,0 +1,27 @@
+.card {
+    background-color: white;
+    width: 250px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 0px 0px 15px 0px;
+}
+.card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+    width: 100%;
+}
+
+.btn {
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 8px 12px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #bdbdbd;
+    border-radius: 5px;
+}

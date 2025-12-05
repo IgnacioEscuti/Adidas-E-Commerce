@@ -1,0 +1,77 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease;
+  z-index: 998;
+}
+
+.overlay.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.carrito-panel {
+  position: fixed;
+  top: 0;
+  right: -500px;
+  width: 420px;
+  height: 100%;
+  background: #fff;
+  padding: 25px;
+  box-shadow: -5px 0 20px rgba(0,0,0,0.3);
+  transition: right .35s ease;
+  z-index: 999;
+  overflow-y: auto;
+}
+
+.carrito-panel.open {
+  right: 0;
+}
+
+.cerrar {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: black;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.item-carrito {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.item-img {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  padding:17px 0px 17px 0px;
+}
+
+.vaciar-btn {
+  margin-top: 15px;
+  padding: 8px 15px;
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.borrar-btn{
+  padding: 8px 15px;
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
