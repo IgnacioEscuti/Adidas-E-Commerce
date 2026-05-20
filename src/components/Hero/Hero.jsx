@@ -5,7 +5,7 @@ function Hero() {
   return (
     <section className="hero">
       <div className="hero-content">
-        <span className="hero-tag">Nueva colección — 2025</span>
+        <span className="hero-tag">Nueva colección — 2026</span>
         <h1 className="hero-title">DISEÑADO<br />PARA<br />GANAR.</h1>
         <p className="hero-subtitle">
           Los modelos más icónicos, redefinidos para el movimiento moderno.
@@ -21,7 +21,7 @@ function Hero() {
       </div>
 
       <div className="hero-image">
-        <img src="/assets/zapatillas-samba-og.avif" alt="Adidas Samba OG" />
+        <img src="/assets/new.avif" alt="Adidas Samba OG" />
       </div>
     </section>
   );

@@ -22,6 +22,11 @@
   --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+html {
+  background-color: var(--bg);
+  overflow-x: hidden;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
   background-color: var(--bg);

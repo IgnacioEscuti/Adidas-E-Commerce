@@ -28,7 +28,7 @@ function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <p>© 2025 Adidas Store. Todos los derechos reservados.</p>
+        <p>© 2026 Adidas Store. Todos los derechos reservados.</p>
       </div>
     </footer>
   );
