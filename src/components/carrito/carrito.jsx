@@ -1,53 +1,66 @@
 import { useContext } from "react";
-import { CartContext } from "../../context/CartContextt";
+import { useNavigate } from "react-router-dom";
+import { CartContext } from "../../context/cartContextt";
 import "./Carrito.css";
 
 function Carrito({ carritoAbierto, cerrarCarrito }) {
   const { carrito, eliminarDelCarrito, vaciarCarrito, totalCarrito } = useContext(CartContext);
+  const navigate = useNavigate();
 
-  if (!carritoAbierto) return null;
+  const irAlCheckout = () => {
+    cerrarCarrito();
+    navigate("/checkout");
+  };
 
   return (
     <>
-      <div className="overlay visible" onClick={cerrarCarrito}></div>
+      <div
+        className={`overlay ${carritoAbierto ? "visible" : ""}`}
+        onClick={cerrarCarrito}
+      />
 
-      <div className={`carrito-panel open`}>
-        <button className="cerrar" onClick={cerrarCarrito}>X</button>
-        <h2>Carrito de compras</h2>
+      <div className={`carrito-panel ${carritoAbierto ? "open" : ""}`}>
+        <div className="carrito-header">
+          <h2>Carrito de compras</h2>
+          <button className="cerrar" onClick={cerrarCarrito}>✕</button>
+        </div>
 
         {carrito.length === 0 ? (
-          <p>El carrito está vacío</p>
+          <div className="carrito-vacio">
+            <p>Tu carrito está vacío</p>
+          </div>
         ) : (
           <>
-            {carrito.map((item) => (
-              <div key={item.id} className="item-carrito">
-                <img src={item.imagen} alt={item.nombre} className="item-img" />
-
-                <div className="item-info">
-                  <h3>{item.nombre}</h3>
-                  <p>Cantidad: {item.cantidad}</p>
-                  <p>Precio unitario: ${item.precio}</p>
-                  <p>Subtotal: ${item.precio * item.cantidad}</p>
-
-                  <button
-                    onClick={() => eliminarDelCarrito(item.id)}
-                    className="borrar-btn"
-                  >
-                    Eliminar
-                  </button>
+            <div className="carrito-items">
+              {carrito.map((item) => (
+                <div key={item.id} className="item-carrito">
+                  <img src={item.imagen} alt={item.nombre} className="item-img" />
+                  <div className="item-info">
+                    <h3>{item.nombre}</h3>
+                    <p>Cantidad: {item.cantidad}</p>
+                    <p>${item.precio * item.cantidad}</p>
+                    <button
+                      onClick={() => eliminarDelCarrito(item.id)}
+                      className="borrar-btn"
+                    >
+                      Eliminar
+                    </button>
+                  </div>
                 </div>
+              ))}
+            </div>
+
+            <div className="carrito-footer">
+              <div className="total-text">
+                <span>Total</span>
+                <span>${totalCarrito()}</span>
               </div>
-            ))}
-
-            <div className="carrito-buttons">
-            <h3 className="total-text">Total: ${totalCarrito()}</h3>
-<button onClick={cerrarCarrito} className="checkout-btn">
-  <a href="/checkout" style={{ color: "white", textDecoration: "none" }}>
-    Finalizar compra
-  </a>
-</button>
-              <button onClick={vaciarCarrito} className="vaciar-btn">Vaciar carrito</button>
-
+              <button className="checkout-btn" onClick={irAlCheckout}>
+                Finalizar compra
+              </button>
+              <button className="vaciar-btn" onClick={vaciarCarrito}>
+                Vaciar carrito
+              </button>
             </div>
           </>
         )}

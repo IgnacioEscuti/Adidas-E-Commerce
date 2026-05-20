@@ -1,58 +1,99 @@
 .checkout-container {
-  width: 400px;
-  margin: 40px auto;
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 14px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-  text-align: center;
-  animation: fadeIn .4s ease-in-out;
+  max-width: 480px;
+  margin: 4rem auto;
+  padding: 2.5rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  animation: fadeUp 0.4s ease;
+}
+
+.checkout-container h2 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
 .checkout-form label {
   display: block;
-  font-weight: bold;
-  margin-top: 15px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
 }
 
 .checkout-form input {
-  width: 90%;
-  padding: 10px;
-  margin-top: 5px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 0;
+  font-size: 0.95rem;
+  background: #fff;
+  color: var(--text);
+  transition: border-color var(--transition);
+  outline: none;
+  font-family: inherit;
+}
+
+.checkout-form input:focus {
+  border-color: var(--accent);
 }
 
 .confirmar-btn {
+  margin-top: 0.75rem;
   width: 100%;
-  margin-top: 25px;
-  padding: 12px;
-  background: black;
+  padding: 0.9rem;
+  background: var(--accent);
   color: white;
-  border-radius: 10px;
   border: none;
-  font-size: 1.1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   cursor: pointer;
+  font-family: inherit;
+  transition: opacity var(--transition);
 }
 
 .confirmar-btn:hover {
-  background: #444;
+  opacity: 0.8;
 }
 
 .mensaje-final {
-  padding: 20px;
-  background: #f2f2f2;
-  border-radius: 12px;
-  animation: fadeIn .4s ease-in-out;
+  text-align: center;
+  padding: 2rem 0;
+  animation: fadeUp 0.4s ease;
 }
 
 .mensaje-final h2 {
-  color: green;
-  margin-bottom: 10px;
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(.97); }
-  to { opacity: 1; transform: scale(1); }
+.mensaje-final p {
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+  font-size: 0.88rem;
+}
+
+.mensaje-final h3 {
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: var(--bg);
+  padding: 0.75rem 1rem;
+  letter-spacing: 0.06em;
+  word-break: break-all;
+  border: 1px solid var(--border);
 }

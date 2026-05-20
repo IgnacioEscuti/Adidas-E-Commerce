@@ -1,10 +1,10 @@
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0, 0, 0, 0.5);
   opacity: 0;
   pointer-events: none;
-  transition: opacity .3s ease;
+  transition: opacity var(--transition);
   z-index: 998;
 }
 
@@ -16,77 +16,181 @@
 .carrito-panel {
   position: fixed;
   top: 0;
-  right: -500px;
-  width: 420px;
+  right: 0;
+  width: min(420px, 100vw);
   height: 100%;
   background: #fff;
-  padding: 25px;
-  box-shadow: -5px 0 20px rgba(0,0,0,0.3);
-  transition: right .35s ease;
+  box-shadow: var(--shadow-lg);
   z-index: 999;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .carrito-panel.open {
-  right: 0;
+  transform: translateX(0);
+}
+
+.carrito-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.carrito-header h2 {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .cerrar {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: black;
-  color: white;
-  border: none;
-  padding: 6px 10px;
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid var(--border);
+  background: transparent;
   cursor: pointer;
-  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: var(--text);
+  transition: background var(--transition);
+}
+
+.cerrar:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.carrito-items {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.5rem 1.5rem;
 }
 
 .item-carrito {
   display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 10px;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border);
 }
 
 .item-img {
-  width: 160px;
-  height: 160px;
+  width: 80px;
+  height: 80px;
   object-fit: cover;
-  padding:17px 0px 17px 0px;
+  background: #f0f0f0;
+  flex-shrink: 0;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 1;
+}
+
+.item-info h3 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.item-info p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.borrar-btn {
+  align-self: flex-start;
+  margin-top: 0.3rem;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1.5px solid var(--border);
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: inherit;
+}
+
+.borrar-btn:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.carrito-vacio {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.carrito-footer {
+  padding: 1.25rem 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.total-text {
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 0.9rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity var(--transition);
+}
+
+.checkout-btn:hover {
+  opacity: 0.8;
 }
 
 .vaciar-btn {
-  margin-top: 15px;
-  padding: 8px 15px;
-  background-color: #000000;
-  color: white;
-  border: none;
+  width: 100%;
+  padding: 0.8rem;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1.5px solid var(--border);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   cursor: pointer;
-  border-radius: 5px;
-}
-.borrar-btn{
-  padding: 8px 15px;
-  background-color: #000000;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
+  font-family: inherit;
+  transition: all var(--transition);
 }
 
-
-.checkout-btn {
-  margin: 15px 180px 0px 0px;
-  padding: 8px 15px;
-  background-color: #ff0004;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  text-align: center;
-  display: inline-block;
-  text-decoration: none;
-
+.vaciar-btn:hover {
+  border-color: var(--red);
+  color: var(--red);
 }

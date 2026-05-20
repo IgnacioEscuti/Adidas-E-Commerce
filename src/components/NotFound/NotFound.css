@@ -1,4 +1,42 @@
 .notfound {
-    text-align: center;
-    margin-top: 50px;
+  max-width: 480px;
+  margin: 6rem auto;
+  text-align: center;
+  padding: 2rem;
+  animation: fadeUp 0.4s ease;
+}
+
+.notfound h2 {
+  font-size: clamp(6rem, 14vw, 10rem);
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  color: #e8e8e8;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.notfound p {
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+}
+
+.notfound a {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background: var(--accent);
+  color: white;
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: opacity var(--transition);
+}
+
+.notfound a:hover {
+  opacity: 0.75;
 }

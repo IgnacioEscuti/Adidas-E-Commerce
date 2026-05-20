@@ -1,4 +1,56 @@
 .itemlist-container {
-    text-align: center;
-    padding: 20px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
 }
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1.5rem;
+}
+
+.section-title {
+  font-size: clamp(1.2rem, 2.5vw, 1.75rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.category-filters {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.filter-chip {
+  display: inline-block;
+  padding: 0.45rem 1rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text-muted);
+  border: 1.5px solid var(--border);
+  background: transparent;
+  transition: all var(--transition);
+}
+
+.filter-chip:hover {
+  color: var(--text);
+  border-color: var(--text);
+}
+
+.filter-chip.active {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--text);
+  font-weight: 900;
+}
+

@@ -1,13 +1,14 @@
 import { useContext, useState } from "react";
-import { CartContext } from "../../context/CartContextt";
-import { collection, addDoc, Timestamp } from "firebase/firestore";
-import { db } from "../../firebase/FirebaseConfig";
-import "./Checkout.css";  
-  function Checkout() {
+import { CartContext } from "../../context/cartContextt";
+import { createOrder } from "../../services/api.js";
+import "./Checkout.css";
+
+function Checkout() {
   const { carrito, totalCarrito, totalUnidades, vaciarCarrito } = useContext(CartContext);
 
   const [datos, setDatos] = useState({ nombre: "", email: "" });
   const [ordenId, setOrdenId] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setDatos({ ...datos, [e.target.name]: e.target.value });
@@ -15,19 +16,23 @@ import "./Checkout.css";
 
   const finalizarCompra = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    const orden = {
-      comprador: datos,
-      items: carrito,
-      total: totalCarrito(),
-      cantidad: totalUnidades(),
-      fecha: Timestamp.now(),
-    };
+    try {
+      const { id } = await createOrder({
+        comprador: datos,
+        items: carrito,
+        total: totalCarrito(),
+        cantidad: totalUnidades(),
+      });
 
-    const docRef = await addDoc(collection(db, "ordenes"), orden);
-
-    setOrdenId(docRef.id);
-    vaciarCarrito();
+      setOrdenId(id);
+      vaciarCarrito();
+    } catch (error) {
+      console.error("Error al crear la orden:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -36,7 +41,7 @@ import "./Checkout.css";
 
       {ordenId ? (
         <div className="mensaje-final">
-          <h2> ¡Gracias por tu compra!</h2>
+          <h2>¡Gracias por tu compra!</h2>
           <p>Tu código de seguimiento es:</p>
           <h3>{ordenId}</h3>
         </div>
@@ -60,14 +65,13 @@ import "./Checkout.css";
             onChange={handleChange}
           />
 
-          <button className="confirmar-btn" type="submit">
-            Confirmar compra
+          <button className="confirmar-btn" type="submit" disabled={loading}>
+            {loading ? "Procesando..." : "Confirmar compra"}
           </button>
         </form>
       )}
     </div>
   );
 }
-
 
 export default Checkout;
